@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StringCalculatorExercise
@@ -23,8 +24,24 @@ namespace StringCalculatorExercise
             {
                 try
                 {
-                    //Split input string into an array of int
-                    int[] splitInput = Array.ConvertAll(input.Split(new Char[] { ',', '\n' }), int.Parse);
+                    // Regex matching a pattern of- //[delim]\n[numbers]
+                    Match match = Regex.Match(input, "//(.+)\\n(.+)");
+                    int[] splitInput;
+
+                    if (match.Success)
+                    {
+                        string deliminator = match.Groups[1].ToString();
+                        string numberString = match.Groups[2].ToString();
+
+                        splitInput = Array.ConvertAll(numberString.Split(deliminator), int.Parse);
+
+                    }
+                    else
+                    {
+                        //Split input string into an array of int
+                        splitInput = Array.ConvertAll(input.Split(new Char[] { ',', '\n' }), int.Parse);
+
+                    }
 
                     return splitInput.Sum();
 

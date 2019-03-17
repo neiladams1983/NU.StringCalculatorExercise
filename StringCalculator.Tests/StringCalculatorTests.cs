@@ -10,6 +10,7 @@ namespace StringCalculatorExercise.Tests
         [InlineData("1",1)]
         [InlineData("1\n2",3)]
         [InlineData("1\n2,3", 6)]
+        [InlineData("//;\n1;2", 3)]
         public void Should_Correctly_Add_Numbers_In_a_String(string input, int expectedResult)
         {
             //Arrange
