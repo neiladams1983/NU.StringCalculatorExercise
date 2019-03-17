@@ -21,10 +21,18 @@ namespace StringCalculatorExercise
             }
             else
             {
-                //Split input string into an array of int
-                int[] splitInput = Array.ConvertAll(input.Split(','), int.Parse);
+                try
+                {
+                    //Split input string into an array of int
+                    int[] splitInput = Array.ConvertAll(input.Split(new Char[] { ',', '\n' }), int.Parse);
 
-                return splitInput.Sum();
+                    return splitInput.Sum();
+
+                }
+                catch
+                {
+                    throw new Exception("Input string is malformed");
+                }
 
             }
         }
