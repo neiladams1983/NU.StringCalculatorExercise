@@ -21,22 +21,11 @@ namespace StringCalculatorExercise
             }
             else
             {
-                try
-                {
-                    //Split input string into an array of int
-                    int[] splitInput = Array.ConvertAll(input.Split(','), int.Parse);
+                //Split input string into an array of int
+                int[] splitInput = Array.ConvertAll(input.Split(','), int.Parse);
 
-                    //Only allow the input to be 0,1,2 numbers long
-                    if (splitInput.Length > 2)
-                    {
-                        throw new ApplicationException("Method can handle 0,1 or 2 numbers as input");
-                    }
-                    return splitInput.Sum();
-                }
-                catch (ApplicationException)
-                {
-                    throw;
-                }
+                return splitInput.Sum();
+
             }
         }
     }
