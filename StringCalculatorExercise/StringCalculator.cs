@@ -30,27 +30,37 @@ namespace StringCalculatorExercise
 
                     if (match.Success)
                     {
-                        string deliminator;
+                        string numberString = match.Groups[2].ToString();
 
-                        Match deliminatorMatch = Regex.Match(match.Groups[1].ToString(), "[[](.*?)[]]");
+                        //Regex matching a pattern of- [delim].  
+                        MatchCollection deliminatorMatch = Regex.Matches(match.Groups[1].ToString(), "[[](.*?)[]]+");
 
-                        if (deliminatorMatch.Success)
+                        if (deliminatorMatch.Count == 1)
                         {
-                            deliminator = deliminatorMatch.Groups[1].ToString();
+                            //Only one deliminator is included in the input string
+                            //As only one match then use the deliminator found by the regex
+                            string deliminator = deliminatorMatch.First().Groups[1].ToString();
+                            splitInput = Array.ConvertAll(numberString.Split(deliminator), int.Parse);
+                        }
+                        else if (deliminatorMatch.Count > 1)
+                        {
+                            //As there's more than one match then create an array.
+                            //For each match in the Match Collection object add the deliminators found by the regex.
+                            string[] matches = deliminatorMatch.Cast<Match>().Select(r => r.Groups[1].Value).ToArray();
+                            splitInput = Array.ConvertAll(numberString.Split(matches, StringSplitOptions.None), int.Parse);
                         }
                         else
                         {
-                            deliminator = match.Groups[1].ToString();
+                            //Simple deliminator is provided without needing square brackets.  e.g  //;\n1;2
+                            string deliminator = match.Groups[1].ToString();
+                            splitInput = Array.ConvertAll(numberString.Split(deliminator), int.Parse);
                         }
-
-                        string numberString = match.Groups[2].ToString();
-
-                        splitInput = Array.ConvertAll(numberString.Split(deliminator), int.Parse);
 
                     }
                     else
                     {
                         //Split input string into an array of int
+                        //This is the default case where either a comma or newline can be used as a deliminator without being in the input string
                         splitInput = Array.ConvertAll(input.Split(new Char[] { ',', '\n' }), int.Parse);
 
                     }
