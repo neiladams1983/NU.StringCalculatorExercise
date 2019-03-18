@@ -13,6 +13,8 @@ namespace StringCalculatorExercise.Tests
         [InlineData("//;\n1;2", 3)]
         [InlineData("1,2,3,1000,5", 1011)]
         [InlineData("1,2,3,1001,5", 11)]
+        [InlineData("//[***]\n1***2***3", 6)]
+        [InlineData("//[&&&]\n1&&&2&&&3", 6)]
         public void Should_Correctly_Add_Numbers_In_a_String(string input, int expectedResult)
         {
             //Arrange

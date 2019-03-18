@@ -30,7 +30,19 @@ namespace StringCalculatorExercise
 
                     if (match.Success)
                     {
-                        string deliminator = match.Groups[1].ToString();
+                        string deliminator;
+
+                        Match deliminatorMatch = Regex.Match(match.Groups[1].ToString(), "[[](.*?)[]]");
+
+                        if (deliminatorMatch.Success)
+                        {
+                            deliminator = deliminatorMatch.Groups[1].ToString();
+                        }
+                        else
+                        {
+                            deliminator = match.Groups[1].ToString();
+                        }
+
                         string numberString = match.Groups[2].ToString();
 
                         splitInput = Array.ConvertAll(numberString.Split(deliminator), int.Parse);
