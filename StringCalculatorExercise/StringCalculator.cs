@@ -54,7 +54,9 @@ namespace StringCalculatorExercise
                         throw new ArgumentOutOfRangeException(errorString);
                     }
 
-                    return splitInput.Sum();
+                    //Skip any number in the array that's bigger than 1000
+                    return splitInput.Where(r => r <= 1000).Sum();
+
 
                 }
                 catch (ArgumentOutOfRangeException)
