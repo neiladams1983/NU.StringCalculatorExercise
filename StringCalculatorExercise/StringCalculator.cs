@@ -43,8 +43,23 @@ namespace StringCalculatorExercise
 
                     }
 
+                    //Check the split array for negative numbers
+                    if (splitInput.Count(r => r < 0) > 0)
+                    {
+                        string errorString = "negatives are not allowed";
+                        foreach (var i in splitInput.Where(r => r < 0))
+                        {
+                            errorString += $" {i}";
+                        }
+                        throw new ArgumentOutOfRangeException(errorString);
+                    }
+
                     return splitInput.Sum();
 
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    throw;
                 }
                 catch
                 {
